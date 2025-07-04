@@ -1,11 +1,9 @@
+import os
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import LabelEncoder
 
-print("Running test script")
-print("Script started")
 
-def clean_csv(file_name):
+def clean_csv(file_name, output_dir='cleaned'):
     print(f"Cleaning {file_name}...")
 
     try:
@@ -16,12 +14,17 @@ def clean_csv(file_name):
 
     # Drop unneeded columns (keep 'Label' or 'Attempted Category' for categories)
     columns_to_drop = [
-        'Src IP dec', 'Dst IP dec', 'Timestamp',
+        'Src IP dec', 'Dast IP dec', 'Timestamp',
         'Fwd Bytes/Bulk Avg', 'Fwd Packet/Bulk Avg', 'Fwd Bulk Rate Avg',
         'Bwd Bytes/Bulk Avg', 'Bwd Packet/Bulk Avg', 'Bwd Bulk Rate Avg',
+        'Fwd PSH Flags', 'Bwd PSH Flags', 'Fwd URG Flags', 'Bwd URG Flags',
+        'Fwd RST Flags', 'Bwd RST Flags', 'FWD Init Win Bytes', 'Bwd Init Win Bytes',
+        'Fwd Act Data Pkts', 'Fwd Seg Size Min',
+        'ICMP Code', 'ICMP Type'
         # Drop Attempted Category only if you don't want it
         # 'Attempted Category'
     ]
+
     df.drop(columns=columns_to_drop, inplace=True, errors='ignore')
 
     # Replace infinite values with NaN
@@ -44,27 +47,27 @@ def clean_csv(file_name):
     print("Unique Labels after mapping:", df['Label'].unique())
 
     # Save cleaned data
-    output_file = file_name.replace('.csv', '_cleaned.csv')
+    base_file_name = os.path.basename(file_name)
+    output_filename = base_file_name.replace('.csv', '_cleaned.csv')
+    output_filepath = os.path.join(output_dir, output_filename)
     try:
-        df.to_csv(output_file, index=False)
-        print(f"Data cleaned and saved to '{output_file}'")
+        df.to_csv(output_filepath, index=False)
+        print(f"Data cleaned and saved to '{output_filepath}'")
+
     except Exception as e:
         print(f"Error saving file: {e}")
 
-clean_csv('thursday_plus.csv')
+def main():
+    # Make directory for cleaned files if it doesn't exist
+    output_dir = input("Enter directory to save cleaned files (default 'cleaned'): ") or 'cleaned'
+    os.makedirs(output_dir, exist_ok=True)
 
 
-#Tuesday
-dfTuesday = pd.read_csv("tuesday.csv", skipinitialspace=True)
+    clean_csv('monday_plus.csv', output_dir=output_dir)
+    clean_csv('tuesday_plus.csv', output_dir=output_dir)
+    clean_csv('wednesday_plus.csv', output_dir=output_dir)
+    clean_csv('thursday_plus.csv', output_dir=output_dir)
+    clean_csv('friday_plus.csv', output_dir=output_dir)
 
-columns_to_delete = ['Src IP dec', 'Dst IP dec', 'Src Port', 'Dst Port', 'Timestamp', 'ICMP Code', 'ICMP Type', 'Fwd URG Flags', 'Bwd URG Flags', 'Fwd RST Flags', 'Bwd RST Flags', 'Fwd PSH Flags', 'Bwd PSH Flags', 'FWD Init Win Bytes', 'Bwd Init Win Bytes', 'Fwd Act Data Pkts', 'Fwd Seg Size Min','Attempted Category']
-#df_parts_to_remove = df[columns_to_delete]
-#df.columns = df.columns.str.strip()
-#print(df.columns)
-
-dfTuesday = dfTuesday.drop(columns = columns_to_delete)
-
-#0 = Bening and 1 = Attack, I want to figure out how to make it output multiple numbers for each attack
-encoder = LabelEncoder()
-
-dfTuesday['Label'] = encoder.fit_transform(dfTuesday['Label'])
+if __name__ == "__main__":
+    main()
