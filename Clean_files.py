@@ -61,13 +61,12 @@ def main():
     # Make directory for cleaned files if it doesn't exist
     output_dir = input("Enter directory to save cleaned files (default 'cleaned'): ") or 'cleaned'
     os.makedirs(output_dir, exist_ok=True)
+    dataset_dir = input("Enter directory containing the CSV files (default './dataset'): ") or './dataset'
 
-
-    clean_csv('monday_plus.csv', output_dir=output_dir)
-    clean_csv('tuesday_plus.csv', output_dir=output_dir)
-    clean_csv('wednesday_plus.csv', output_dir=output_dir)
-    clean_csv('thursday_plus.csv', output_dir=output_dir)
-    clean_csv('friday_plus.csv', output_dir=output_dir)
+    # Loop through each file in the dataset directory
+    for file_name in os.listdir(dataset_dir):
+        if file_name.endswith('.csv'):
+            clean_csv(os.path.join(dataset_dir, file_name), output_dir=output_dir)
 
 if __name__ == "__main__":
     main()
