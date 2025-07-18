@@ -15,7 +15,7 @@ def clean_csv(file_name, output_dir='cleaned'):
 
     # Drop unneeded columns (keep 'Label' or 'Attempted Category' for categories)
     columns_to_drop = [
-        'Src IP dec', 'Dst IP dec', 'Timestamp', 'Local', 'Local_1', 'Local_2', 'Local_3', 
+        'Src IP dec', 'Dst IP dec', 'Local', 'Local_1', 'Local_2', 'Local_3', 
         'Local_4', 'Local_5', 'Local_6', 'Local_7', 'Local_8', 'Local_9', 'Local_10', 'Local_11',
         'Local_12', 'Local_13', 'Local_14'
         # Drop Attempted Category only if you don't want it
@@ -59,7 +59,7 @@ def clean_csv(file_name, output_dir='cleaned'):
     except Exception as e:
         print(f"Error saving file: {e}")
 
-def main():
+#def main():
     # Make directory for cleaned files if it doesn't exist
     output_dir = input("Enter directory to save cleaned files (default 'cleaned'): ") or 'cleaned'
     os.makedirs(output_dir, exist_ok=True)
@@ -70,11 +70,11 @@ def main():
         if file_name.endswith('.csv'):
             clean_csv(os.path.join(dataset_dir, file_name), output_dir=output_dir)
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+    #main()
 
-clean_csv('tuesday_plus.csv')
-clean_csv('friday_plus.csv')
-clean_csv('wednesday.csv')
+#clean_csv('tuesday_plus.csv')
+#clean_csv('friday_plus.csv')
+#clean_csv('wednesday_plus.csv')
 clean_csv('thursday_plus.csv')
 
