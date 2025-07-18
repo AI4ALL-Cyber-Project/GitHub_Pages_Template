@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import LabelEncoder
 
 
 def clean_csv(file_name, output_dir='cleaned'):
@@ -14,13 +15,9 @@ def clean_csv(file_name, output_dir='cleaned'):
 
     # Drop unneeded columns (keep 'Label' or 'Attempted Category' for categories)
     columns_to_drop = [
-        'Src IP dec', 'Dast IP dec', 'Timestamp',
-        'Fwd Bytes/Bulk Avg', 'Fwd Packet/Bulk Avg', 'Fwd Bulk Rate Avg',
-        'Bwd Bytes/Bulk Avg', 'Bwd Packet/Bulk Avg', 'Bwd Bulk Rate Avg',
-        'Fwd PSH Flags', 'Bwd PSH Flags', 'Fwd URG Flags', 'Bwd URG Flags',
-        'Fwd RST Flags', 'Bwd RST Flags', 'FWD Init Win Bytes', 'Bwd Init Win Bytes',
-        'Fwd Act Data Pkts', 'Fwd Seg Size Min',
-        'ICMP Code', 'ICMP Type'
+        'Src IP dec', 'Dst IP dec', 'Timestamp', 'Local', 'Local_1', 'Local_2', 'Local_3', 
+        'Local_4', 'Local_5', 'Local_6', 'Local_7', 'Local_8', 'Local_9', 'Local_10', 'Local_11',
+        'Local_12', 'Local_13', 'Local_14'
         # Drop Attempted Category only if you don't want it
         # 'Attempted Category'
     ]
@@ -42,9 +39,14 @@ def clean_csv(file_name, output_dir='cleaned'):
     # Map labels to categories
     # Keep 'BENIGN' as 'Benign', others keep original attack names for multi-class classification
     df['Label'] = df['Label'].apply(lambda x: 'Benign' if x == 'BENIGN' else x)
+    
+    
 
     # check unique attack categories present
     print("Unique Labels after mapping:", df['Label'].unique())
+    encoder = LabelEncoder()
+    df['Label'] = encoder.fit_transform(df['Label'])
+    print(dict(zip(encoder.classes_, encoder.transform(encoder.classes_))))
 
     # Save cleaned data
     base_file_name = os.path.basename(file_name)
@@ -70,3 +72,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+clean_csv('tuesday_plus.csv')
+clean_csv('friday_plus.csv')
+clean_csv('wednesday.csv')
+clean_csv('thursday_plus.csv')
+
