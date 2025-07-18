@@ -59,7 +59,7 @@ def clean_csv(file_name, output_dir='cleaned'):
     except Exception as e:
         print(f"Error saving file: {e}")
 
-#def main():
+def main():
     # Make directory for cleaned files if it doesn't exist
     output_dir = input("Enter directory to save cleaned files (default 'cleaned'): ") or 'cleaned'
     os.makedirs(output_dir, exist_ok=True)
