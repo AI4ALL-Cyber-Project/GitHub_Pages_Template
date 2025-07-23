@@ -17,7 +17,7 @@ def clean_csv(file_name, output_dir='cleaned'):
     columns_to_drop = [
         'Src IP dec', 'Dst IP dec', 'Local', 'Local_1', 'Local_2', 'Local_3', 
         'Local_4', 'Local_5', 'Local_6', 'Local_7', 'Local_8', 'Local_9', 'Local_10', 'Local_11',
-        'Local_12', 'Local_13', 'Local_14'
+        'Local_12', 'Local_13', 'Local_14', 'Attempted Category','Timestamp'
         # Drop Attempted Category only if you don't want it
         # 'Attempted Category'
     ]
@@ -39,6 +39,7 @@ def clean_csv(file_name, output_dir='cleaned'):
     # Map labels to categories
     # Keep 'BENIGN' as 'Benign', others keep original attack names for multi-class classification
     df['Label'] = df['Label'].apply(lambda x: 'Benign' if x == 'BENIGN' else x)
+    df = df[~df['Label'].str.contains('Attempted', case=False, na=False)]
     
     
 
