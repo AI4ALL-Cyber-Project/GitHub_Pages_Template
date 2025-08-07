@@ -23,7 +23,7 @@ It includes attacks such as:
 
 ## 🚀 Live Streamlit App
 
-🔗 [Click here to use the app](https://cyberdetection.streamlit.app)
+🔗 [Click here to use the app]([https://cyberdetection.streamlit.app](https://eauxzl4c8ru37cmlv6ygry.streamlit.app/))
 
 Deployed via **Streamlit Community Cloud** using the `Isha` branch, which contains the trained model and deployment script.
 
@@ -31,10 +31,11 @@ Deployed via **Streamlit Community Cloud** using the `Isha` branch, which contai
 
 ## 🧠 Machine Learning Model
 
-- **Training Dataset**: CICIDS 2017 (preprocessed)
+- **Training Dataset**: CICIDS 2017 using Kaggle
 - **Model File**: `new_model.joblib`
 - **Branch Location**: [`Isha` branch](https://github.com/AI4ALL-Cyber-Project/GitHub_Pages_Template/tree/Isha)
 - **Script**: `app.py` — loads the model and creates a web interface using Streamlit
+- `...`: Other branches include data exploration and preprocessing.
 - **Features**: Model predicts based on selected input features extracted from the dataset
 
 
