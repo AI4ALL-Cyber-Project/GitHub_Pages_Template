@@ -1,4 +1,4 @@
-# 🛡️ Cyber Attack Detection Web App
+# 🛡️ Cyber Attack Detection Model
 
 This project is a machine learning-powered **web application** that detects cyber attacks based on real-world network traffic. It leverages the **CICIDS dataset** to train a predictive model and deploys the model using **Streamlit** for interactive use.
 
