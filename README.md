@@ -23,7 +23,7 @@ It includes attacks such as:
 
 ## 🚀 Live Streamlit App
 
-🔗 Access the app here: **[Live on Streamlit](https://eauxzl4c8ru37cmlv6ygry.streamlit.app/)**
+🔗 Access the app here: **[CLICK HERE](https://eauxzl4c8ru37cmlv6ygry.streamlit.app/)**
 
 Deployed via **Streamlit Community Cloud** using the `Isha` branch, which contains the trained model and deployment script.
 
